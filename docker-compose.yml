@@ -1,0 +1,11 @@
+# Serveur Playwright distant utilisé par la CI (et en local si PLAYWRIGHT_SERVER est défini).
+# La version de l'image doit correspondre à celle de "playwright" dans pyproject.toml.
+services:
+  playwright-server:
+    image: mcr.microsoft.com/playwright:v1.63.0-jammy
+    container_name: playwright-server
+    command: npx -y playwright-core@1.63.0 run-server --port 3000 --host 0.0.0.0
+    ports:
+      - "3000:3000"
+    ipc: host
+    restart: unless-stopped

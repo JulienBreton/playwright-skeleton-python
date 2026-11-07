@@ -1,0 +1,19 @@
+# Environnement Python
+.venv/
+__pycache__/
+*.pyc
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+
+# Secrets locaux (seul .env.example est versionné)
+.env
+
+# Sessions enregistrées (storage state)
+.auth/
+
+# Résultats et rapports
+test-results/
+reports/
+allure-results/
+allure-report/

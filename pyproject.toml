@@ -1,0 +1,70 @@
+[project]
+name = "playwright-skeleton-python"
+version = "0.1.0"
+requires-python = ">=3.14"
+dependencies = [
+    "allure-pytest>=2.16.2",
+    "playwright==1.63.0",
+    "pydantic>=2.14.3",
+    "pytest>=9.2.0",
+    "pytest-html>=4.2.0",
+    "pytest-playwright>=0.10.0",
+    "pytest-rerunfailures>=16.7",
+    "pytest-xdist>=3.8.0",
+    "python-dotenv>=1.2.4",
+]
+
+[dependency-groups]
+dev = [
+    "mypy>=2.4.1",
+    "ruff>=0.17.4",
+]
+
+# ---------------------------------------------------------------------------
+# pytest : options communes à toutes les exécutions (local et CI).
+# Les différences (headed, workers, retries, exports) passent en ligne de commande.
+# ---------------------------------------------------------------------------
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+xfail_strict = true
+addopts = [
+    "--strict-markers",
+    "--browser=chromium",
+    "--tracing=retain-on-failure",
+    "--screenshot=only-on-failure",
+    "--video=retain-on-failure",
+    "--output=test-results",
+]
+markers = [
+    "smoke: contrôles rapides et critiques, lancés à chaque commit",
+    "ui: contrôles passant par le navigateur",
+    "api: contrôles d'API, sans navigateur",
+]
+
+# ---------------------------------------------------------------------------
+# ruff : lint + formatage
+# ---------------------------------------------------------------------------
+[tool.ruff]
+line-length = 100
+target-version = "py314"
+
+[tool.ruff.lint]
+select = [
+    "E", "W", "F",  # erreurs de base (pycodestyle, pyflakes)
+    "I",            # ordre des imports
+    "N",            # conventions de nommage
+    "UP",           # syntaxe Python moderne
+    "B",            # bugs probables
+    "SIM",          # simplifications
+    "PT",           # bonnes pratiques pytest
+    "RUF",          # règles propres à ruff
+]
+
+# ---------------------------------------------------------------------------
+# mypy : typage strict, bloquant en CI
+# ---------------------------------------------------------------------------
+[tool.mypy]
+strict = true
+files = ["framework", "tests", "conftest.py"]
+plugins = ["pydantic.mypy"]
