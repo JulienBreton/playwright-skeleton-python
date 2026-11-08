@@ -35,12 +35,21 @@ Le UI mode (`npx playwright test --ui`) appartient au runner Playwright Test (No
 En Python, les tests sont lancés par pytest (plugin `pytest-playwright`), qui n'a pas d'interface graphique.
 Le Trace Viewer (`show-trace`) est indépendant du runner : il fonctionne dans tous les langages.
 
-| | UI mode (TS uniquement) | Trace Viewer (Python aussi) |
-| --- | --- | --- |
-| Moment | pendant l'exécution | après l'exécution |
-| Lancer ou relancer des tests depuis l'interface | oui | non |
-| Mode watch (relance à chaque modification) | oui | non |
-| Timeline, DOM avant/après chaque action, réseau, console | oui | oui |
+Le Playwright Inspector couvre l'autre moitié : le débogage en direct.
+
+| | UI mode (TS uniquement) | Trace Viewer (Python aussi) | Inspector (Python aussi) |
+| --- | --- | --- | --- |
+| Moment | pendant et après l'exécution | après l'exécution | pendant l'exécution |
+| Navigateur visible, pas à pas | oui | non | oui |
+| Pick locator (cliquer dans la page pour obtenir le locator) | oui | oui | oui |
+| Revenir sur une étape passée | oui | oui | non |
+| Timeline, DOM avant/après chaque action, réseau, console | oui | oui | non |
+| Lancer ou relancer des tests depuis l'interface | oui | non | non |
+| Mode watch (relance à chaque modification) | oui | non | non |
+
+En pratique : l'Inspector pour mettre au point un locator ou une étape,
+le Trace Viewer pour comprendre un échec. À eux deux, ils couvrent l'essentiel du UI mode,
+sauf le lancement des tests depuis l'interface et le mode watch.
 
 Équivalents en Python :
 
@@ -48,7 +57,9 @@ Le Trace Viewer (`show-trace`) est indépendant du runner : il fonctionne dans t
 - voir le navigateur pendant le test : `uv run pytest --headed --slowmo 500` ;
 - avancer pas à pas : `page.pause()` dans le test, ou `PWDEBUG=1 uv run pytest <fichier>` (Playwright Inspector) ;
 - lancer les tests depuis VS Code : onglet Testing de l'extension Python (pytest).
-  L'extension « Playwright Test for VS Code » ne prend en charge que JS/TS.
+  L'extension « Playwright Test for VS Code » ne prend en charge que JS/TS ;
+- relancer à chaque modification : plugin `pytest-watcher`, non installé dans le projet
+  (`uv add --dev pytest-watcher`, puis `uv run ptw tests/ui/customer`).
 
 ### Rapports
 
