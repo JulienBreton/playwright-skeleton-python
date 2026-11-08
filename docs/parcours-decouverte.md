@@ -53,6 +53,7 @@ Durée indicative : 10 étapes d'environ 1 h, à répartir sur une ou deux semai
 5. Annuler les modifications.
 
 **À retenir :** en cas d'échec, la trace est la première chose à ouvrir, comme dans le projet TypeScript.
+Le UI mode (`--ui`) n'existe pas en Python : voir [le comparatif UI mode / Trace Viewer](commandes.md#pas-de-ui-mode-en-python--trace-viewer-à-la-place).
 
 ---
 

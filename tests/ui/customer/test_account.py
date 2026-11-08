@@ -11,4 +11,4 @@ def test_account_page_opens_with_saved_session(account_page: AccountPage) -> Non
     # Pas de connexion ici : la session client est injectée par tests/ui/customer/conftest.py
     account_page.open()
 
-    expect(account_page.title).to_have_text("Mon compte")
+    expect(account_page.title).to_have_text("Mon toto")
